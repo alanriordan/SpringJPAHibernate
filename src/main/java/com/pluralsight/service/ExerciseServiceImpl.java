@@ -3,13 +3,21 @@ package com.pluralsight.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.pluralsight.model.Activity;
+import com.pluralsight.model.Exercise;
+import com.pluralsight.repository.ExerciseRepository;
 
 
 @Service("exerciseService")
+@Transactional
 public class ExerciseServiceImpl implements ExerciseService {
+	
+	@Autowired
+	private ExerciseRepository exerciseRepo;
 
 	public List<Activity> findAllActivities() {
 		
@@ -28,6 +36,10 @@ public class ExerciseServiceImpl implements ExerciseService {
 		activities.add(swim);
 		
 		return activities;
+	}
+
+	public Exercise save(Exercise exercise) {
+		return exerciseRepo.save(exercise);
 	}
 	
 }
